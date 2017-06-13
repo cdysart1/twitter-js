@@ -11,18 +11,28 @@ var locals = {
     ]
 };
 
+const routes = require('./routes');
+app.use('/', routes);
+
 app.use(function (req, res, next) {
     // do your logging here
     // call `next`, or else your app will be a black hole — receiving requests but never properly responding
-  console.log();
+  console.log(req.method, req.url);
   next();
 })
 
-app.get('/', function (req, res) {
+app.use(express.static('public'));
 
-const people = [{name: 'Full'}, {name: 'Stacker'}, {name: 'Son'}];
-res.render( 'index', {title: 'Hall of Fame', people: people} );
-})
+// app.get('/stylesheets/style.css', function (req, res) {
+//   res.sendFile(__dirname + '/public/stylesheets/style.css');
+// });
+
+// app.get('/', function (req, res) {
+
+//   const people = [{name: 'Full'}, {name: 'Stacker'}, {name: 'Son'}];
+//   res.render( 'index', {title: 'Hall of Fame', people: people} );
+
+// })
 
 app.listen(3000, function(){
   console.log('server listening');
